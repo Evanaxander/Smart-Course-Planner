@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Course Planner - Dashboard</title>
+  <style>
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Header */
+    header {
+      background-color: #007bff; /* Blue background */
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: center; /* Center content horizontally */
+      align-items: center; /* Center content vertically */
+      position: relative; /* For positioning the navigation */
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    header nav {
+      position: absolute; /* Position the nav absolutely */
+      right: 20px; /* Align to the right */
+    }
+
+    header nav a {
+      color: white;
+      margin-left: 20px;
+      font-size: 16px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background-color: #343a40;
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding-top: 60px;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 15px 20px;
+      color: white;
+      font-size: 18px;
+    }
+
+    .sidebar a:hover {
+      background-color: #007bff;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    .welcome-message {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .cgpa-display {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .cgpa-display h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #007bff;
+    }
+
+    .cgpa-value {
+      font-size: 36px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    .course-plan, .progress-tracking, .history {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .course-plan h2, .progress-tracking h2, .history h2 {
+      margin: 0;
+      font-size: 20px;
+      color: #007bff;
+    }
+
+    .course-list, .history-list {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 15px;
+    }
+
+    .course-list li, .history-list li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .course-list li:last-child, .history-list li:last-child {
+      border-bottom: none;
+    }
+
+    .progress-bar {
+      width: 100%;
+      background-color: #e9ecef;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 15px;
+    }
+
+    .progress-bar-fill {
+      width: 60%; /* Example progress */
+      height: 20px;
+      background-color: #007bff;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #343a40;
+      color: white;
+      margin-left: 250px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>Smart Course Planner</h1> <!-- Centered text -->
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Profile</a>
+      <a href="#">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="#">Dashboard</a>
+    <a href="#">Course Selection</a>
+    <a href="#">CGPA Prediction</a>
+    <a href="#">Profile Settings</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="welcome-message">
+      Welcome back, <strong>Nuzhat Jahan</strong>!
+    </div>
+
+    <!-- Current CGPA Display -->
+    <div class="cgpa-display">
+      <h2>Your Current CGPA</h2>
+      <div class="cgpa-value">3.75</div>
+    </div>
+
+    <!-- Recommended Course Plan -->
+    <div class="course-plan">
+      <h2>Recommended Course Plan</h2>
+      <ul class="course-list">
+        <li>Course A - 3 Credits</li>
+        <li>Course B - 4 Credits</li>
+        <li>Course C - 3 Credits</li>
+      </ul>
+    </div>
+
+    <!-- Progress Tracking -->
+    <div class="progress-tracking">
+      <h2>Progress Tracking</h2>
+      <div class="progress-bar">
+        <div class="progress-bar-fill"></div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="history">
+      <h2>History</h2>
+      <ul class="history-list">
+        <li>Semester 1: CGPA 3.50</li>
+        <li>Semester 2: CGPA 3.65</li>
+        <li>Semester 3: CGPA 3.75</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 Smart Course Planner. All rights reserved.
+  </footer>
+</body>
+</html>
+

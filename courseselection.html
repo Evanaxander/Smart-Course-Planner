@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Selection - Smart Course Planner</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1, h2 {
+            color: #fff;
+        }
+
+        p {
+            color: #ddd;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .course-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .course-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background: #4ca1af;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2c3e50;
+        }
+
+        input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 10px;
+        }
+
+        .recommendations {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Course Selection</h1>
+        <p>View available courses, input failed/low-grade courses, and get optimized recommendations.</p>
+        
+        <!-- Available Courses Section -->
+        <div class="section">
+            <h2>Available Courses</h2>
+            <div class="course-list">
+                <div class="course-item">
+                    <span>CS101 - Introduction to Computer Science</span>
+                    <button>Add</button>
+                </div>
+                <div class="course-item">
+                    <span>MATH201 - Advanced Mathematics</span>
+                    <button>Add</button>
+                </div>
+                <div class="course-item">
+                    <span>PHY301 - Physics for Engineers</span>
+                    <button>Add</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Failed/Low-Grade Courses -->
+        <div class="section">
+            <h2>Input Failed/Low-Grade Courses</h2>
+            <input type="text" placeholder="Enter course code (e.g., CS101)">
+            <button>Submit</button>
+        </div>
+
+        <!-- Optimized Recommendations -->
+        <div class="section">
+            <h2>Optimized Recommendations</h2>
+            <div class="recommendations">
+                <p>Based on your input, we recommend the following courses:</p>
+                <ul>
+                    <li>CS102 - Data Structures</li>
+                    <li>MATH202 - Linear Algebra</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
