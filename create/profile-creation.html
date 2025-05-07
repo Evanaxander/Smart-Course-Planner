@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Profile - Smart Course Planner</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="profile-creation.css">
+</head>
+<body>
+    <div class="profile-container">
+        <div class="progress-steps">
+            <div class="step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Basic Info</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Academic Info</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Interests</div>
+            </div>
+        </div>
+
+        <div class="header">
+            <h1>Create Your Profile</h1>
+            <p>Complete your profile to get personalized course recommendations</p>
+        </div>
+
+        <form id="profileForm" class="profile-form">
+            <div class="form-section active" data-section="1">
+                <h2><i class="fas fa-user-circle"></i> Basic Information</h2>
+                <div class="form-grid">
+                    <div class="form-group floating-label">
+                        <input type="text" id="fullName" name="fullName" required placeholder=" ">
+                        <label for="fullName">Full Name</label>
+                        <i class="fas fa-user input-icon"></i>
+                    </div>
+                    <div class="form-group floating-label">
+                        <input type="text" id="studentId" name="studentId" required placeholder=" ">
+                        <label for="studentId">Student ID</label>
+                        <i class="fas fa-id-card input-icon"></i>
+                    </div>
+                    <div class="form-group floating-label">
+                        <input type="email" id="email" name="email" required placeholder=" ">
+                        <label for="email">Email</label>
+                        <i class="fas fa-envelope input-icon"></i>
+                    </div>
+                    <div class="form-group floating-label password-group">
+                        <input type="password" id="password" name="password" required placeholder=" ">
+                        <label for="password">Password</label>
+                        <i class="fas fa-lock input-icon"></i>
+                        <button type="button" class="toggle-password">
+                            <i class="far fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="next-btn">Continue <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="form-section" data-section="2">
+                <h2><i class="fas fa-graduation-cap"></i> Academic Information</h2>
+                <div class="form-grid">
+                    <div class="form-group floating-label">
+                        <select id="department" name="department" required>
+                            <option value="" disabled selected></option>
+                            <option value="computer_science">Computer Science</option>
+                            <option value="electrical_engineering">Electrical Engineering</option>
+                            <option value="mechanical_engineering">Mechanical Engineering</option>
+                            <option value="business">Business Administration</option>
+                        </select>
+                        <label for="department">Department</label>
+                        <i class="fas fa-building input-icon"></i>
+                    </div>
+                    <div class="form-group floating-label">
+                        <select id="semester" name="semester" required>
+                            <option value="" disabled selected></option>
+                            <option value="1">1st Semester</option>
+                            <option value="2">2nd Semester</option>
+                            <option value="3">3rd Semester</option>
+                            <option value="4">4th Semester</option>
+                            <option value="5">5th Semester</option>
+                            <option value="6">6th Semester</option>
+                        </select>
+                        <label for="semester">Current Semester</label>
+                        <i class="fas fa-calendar-alt input-icon"></i>
+                    </div>
+                    <div class="form-group floating-label">
+                        <input type="number" id="cgpa" name="cgpa" step="0.01" min="0" max="4" placeholder=" ">
+                        <label for="cgpa">Current CGPA (if any)</label>
+                        <i class="fas fa-star input-icon"></i>
+                    </div>
+                    <div class="form-group file-upload-group">
+                        <label for="transcript">Upload Transcript (PDF only, max 5MB)</label>
+                        <div class="file-upload-container">
+                            <input type="file" id="transcript" name="transcript" accept=".pdf">
+                            <label for="transcript" class="file-upload-label">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <span>Choose file</span>
+                            </label>
+                            <div id="filePreview" class="file-preview">
+                                <div class="file-info">
+                                    <i class="fas fa-file-pdf"></i>
+                                    <div class="file-details">
+                                        <span class="file-name">No file selected</span>
+                                        <span class="file-size"></span>
+                                    </div>
+                                </div>
+                                <button type="button" class="remove-file" aria-label="Remove file">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="fileError" class="error-message"></div>
+                    </div>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="prev-btn"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button type="button" class="next-btn">Continue <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <div class="form-section" data-section="3">
+                <h2><i class="fas fa-lightbulb"></i> Academic Interests</h2>
+                <p class="interests-description">Select at least 2 areas that interest you:</p>
+                <div class="interests-grid">
+                    <div class="interest-card" data-interest="artificial_intelligence">
+                        <i class="fas fa-robot"></i>
+                        <span>Artificial Intelligence</span>
+                        <input type="checkbox" name="interests" value="artificial_intelligence">
+                    </div>
+                    <div class="interest-card" data-interest="data_science">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Data Science</span>
+                        <input type="checkbox" name="interests" value="data_science">
+                    </div>
+                    <div class="interest-card" data-interest="web_development">
+                        <i class="fas fa-code"></i>
+                        <span>Web Development</span>
+                        <input type="checkbox" name="interests" value="web_development">
+                    </div>
+                    <div class="interest-card" data-interest="cybersecurity">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Cybersecurity</span>
+                        <input type="checkbox" name="interests" value="cybersecurity">
+                    </div>
+                    <div class="interest-card" data-interest="networking">
+                        <i class="fas fa-network-wired"></i>
+                        <span>Networking</span>
+                        <input type="checkbox" name="interests" value="networking">
+                    </div>
+                    <div class="interest-card" data-interest="business_analytics">
+                        <i class="fas fa-business-time"></i>
+                        <span>Business Analytics</span>
+                        <input type="checkbox" name="interests" value="business_analytics">
+                    </div>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="prev-btn"><i class="fas fa-arrow-left"></i> Back</button>
+                    <button type="submit" class="submit-btn">Complete Profile <i class="fas fa-check"></i></button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <div class="success-animation">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                </svg>
+            </div>
+            <h2>Profile Created Successfully!</h2>
+            <p>Your profile has been successfully created. You can now access all features of Smart Course Planner.</p>
+            <button id="continueBtn" class="primary-btn">Continue to Dashboard <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <script src="profile-creation.js"></script>
+
+    <style>
+        .toast-success {
+            background-color: #28a745;
+        }
+    </style>
+    
+</body>
+</html>

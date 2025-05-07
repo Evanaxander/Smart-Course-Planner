@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Course Planner - Course Selection</title>
+  <link rel="stylesheet" href="course-selection.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Course Selection</h1>
+    <p>Select courses for the upcoming semester (Max: 12 Credits or 4 Courses)</p>
+    <div class="credit-counter" id="creditCounter">Selected Credits: 0 | Selected Courses: 0</div>
+
+    <!-- Year 01: Previous Semesters with Grades -->
+    <h2>Year 01 - Completed Courses</h2>
+    <div class="semester">
+      <h3>Semester 01</h3>
+      <div class="course-item">ENG101 - English Listening and Speaking (3 credits) <span class="grade">Grade: A</span></div>
+      <div class="course-item">MAT102 - Mathematics (3 credits) <span class="grade">Grade: B+</span></div>
+      <div class="course-item">PHY101+L - Physics I (4 credits) <span class="grade">Grade: B</span></div>
+      <div class="course-item">H/S-1 - History/Society (3 credits) <span class="grade">Grade: A-</span></div>
+    </div>
+
+    <div class="semester">
+      <h3>Semester 02</h3>
+      <div class="course-item">ENG102 - Reading Skills (3 credits) <span class="grade">Grade: A</span></div>
+      <div class="course-item">CSE101+L - Intro to CS (4 credits) <span class="grade">Grade: B+</span></div>
+      <div class="course-item">PHY102+L - Physics II (4 credits) <span class="grade">Grade: A-</span></div>
+      <div class="course-item">H/S-2 - History/Society (3 credits) <span class="grade">Grade: B</span></div>
+    </div>
+
+    <div class="semester">
+      <h3>Semester 03</h3>
+      <div class="course-item">ENG105 - Professional Writing (3 credits) <span class="grade">Grade: B-</span></div>
+      <div class="course-item">CSE104+L - Circuit Analysis (4 credits) <span class="grade">Grade: A</span></div>
+      <div class="course-item">CSE201 - Structured Programming (3 credits) <span class="grade" style="color: #ff9999;">Grade: D</span></div>
+      <div class="course-item">H/S-3 - History/Society (3 credits) <span class="grade">Grade: B+</span></div>
+    </div>
+
+    <!-- Selectable Courses (Semester 05 - 12) -->
+    <h2>Year 02 - Course Selection</h2>
+
+    <div class="semester">
+      <h3>Semester 05</h3>
+      <label class="course-item"><input type="checkbox" value="4" class="semester05" data-grade="A"> CSE203+L - Data Structures (4 credits)</label>
+      <label class="course-item"><input type="checkbox" value="4" class="semester05" data-grade="B+"> CSE204+L - Algorithms (4 credits) [Retake]</label>
+      <label class="course-item"><input type="checkbox" value="3" class="semester05" data-grade="B"> MAT212 - Discrete Math (3 credits)</label>
+      <label class="course-item"><input type="checkbox" value="3" class="semester05" data-grade="A-"> H/S-4 - History/Society (3 credits)</label>
+    </div>
+
+    <!-- Other Semesters -->
+    <!-- Semester 06 to Semester 11 -->
+
+    <div class="button-container">
+      <!-- Use Smart Course Planner Button -->
+      <button style="background-color: #0066cc; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+        <a href="suggestions.html" style="color: white; text-decoration: none;">Smart Course Planner</a>
+      </button>
+      
+      <!-- Predict CGPA Button -->
+      <button id="predictCGPA" style="background-color: #0066cc; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+        Predict CGPA
+      </button>
+    </div>
+
+    <!-- Popup for CGPA prediction -->
+    <div class="popup" id="popup">
+      <h3>Predicted CGPA</h3>
+      <p id="predictedCGPA"></p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <script src="course-selection.js"></script>
+</body>
+</html>

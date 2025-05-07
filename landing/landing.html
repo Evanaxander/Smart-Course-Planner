@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Course Planner - Landing Page</title>
+  <link rel="stylesheet" href="landing.css">
+</head>
+<body>
+  <!-- Notification Element -->
+  <div id="notification" class="notification">
+    <span class="notification-icon">❌</span>
+    <span id="notification-message"></span>
+  </div>
+
+  <div class="landing-container">
+    <header>
+      <h1>Smart Course Planner</h1>
+      <p>Your Intelligent Academic Companion</p>
+    </header>
+
+    <main>
+      <section class="intro-section">
+        <h2>What is Smart Course Planner?</h2>
+        <p>
+          Smart Course Planner is an innovative tool designed to help students optimize their course selection, predict their CGPA, and track their academic progress seamlessly. Whether you're planning your semester or aiming for a specific GPA, our intelligent algorithms provide personalized recommendations to keep you on track.
+        </p>
+        <a href="#login-section" class="cta-button">Get Started</a>
+      </section>
+
+      <section id="login-section" class="login-section">
+        <h2>Login to Your Account</h2>
+
+        <form id="loginForm" class="login-form">
+          <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+          </div>
+          <button type="submit" class="login-btn">Login</button>
+          <div class="extra-links">
+            <a href="#">Forgot Password?</a>
+            <a href="#">Create an Account</a>
+          </div>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Smart Course Planner. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="landing.js"></script>
+</body>
+</html>

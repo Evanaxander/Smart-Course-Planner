@@ -1,0 +1,72 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1e3a8a, #60a5fa);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .container {
+    max-width: 800px;
+    width: 90%;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+    color: #ffed75;
+    margin-bottom: 20px;
+  }
+  
+  .suggestion {
+    margin: 20px 0;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    transition: background 0.3s ease;
+  }
+  
+  .suggestion:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .suggestion ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .suggestion li {
+    margin: 10px 0;
+    font-size: 1.1rem;
+  }
+  
+  button {
+    background: #4ca1af;
+    color: white;
+    padding: 12px 24px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  button:hover {
+    background: #2c3e50;
+  }
