@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Course Planner - Dashboard</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7fa;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    header {
+      background-color: #2c3e50;
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    header nav {
+      position: absolute;
+      right: 20px;
+    }
+
+    header nav a {
+      color: white;
+      margin-left: 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    header nav a:hover {
+      color: #18bc9c;
+      text-decoration: none;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #34495e;
+      color: white;
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding-top: 60px;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 15px 20px;
+      color: #ecf0f1;
+      font-size: 16px;
+      transition: all 0.3s;
+      border-left: 4px solid transparent;
+    }
+
+    .sidebar a:hover {
+      background-color: #2c3e50;
+      border-left: 4px solid #18bc9c;
+      color: white;
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .left-column {
+      flex: 2;
+      min-width: 600px;
+      margin-right: 20px;
+    }
+
+    .right-column {
+      flex: 1;
+      min-width: 350px;
+    }
+
+    .welcome-message {
+      font-size: 22px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+      padding: 15px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .dashboard-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .dashboard-card h2 {
+      margin: 0 0 15px 0;
+      font-size: 20px;
+      color: #2c3e50;
+      border-bottom: 2px solid #f1f1f1;
+      padding-bottom: 10px;
+    }
+
+    .cgpa-value {
+      font-size: 36px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin: 15px 0;
+      text-align: center;
+    }
+
+    .cgpa-feedback {
+      margin-top: 10px;
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 4px;
+      text-align: center;
+    }
+
+    .history-list {
+      list-style-type: none;
+      padding: 0;
+      margin-top: 15px;
+    }
+
+    .history-list li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      transition: background-color 0.2s;
+    }
+
+    .history-list li:hover {
+      background-color: #f9f9f9;
+    }
+
+    .history-list span {
+      display: block;
+      font-weight: bold;
+      margin: 15px 0 5px 0;
+      color: #2c3e50;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+
+    table th,
+    table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    table th {
+      background-color: #2c3e50;
+      color: white;
+      font-weight: normal;
+    }
+
+    table td.year-label {
+      background-color: #f1f1f1;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    footer {
+      text-align: center;
+      padding: 15px;
+      background-color: #2c3e50;
+      color: white;
+      margin-left: 250px;
+      font-size: 14px;
+    }
+
+    .btn-retake {
+      display: inline-block;
+      margin-top: 15px;
+      background-color: #18bc9c;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background-color 0.3s;
+    }
+
+    .btn-retake:hover {
+      background-color: #15a589;
+    }
+
+    /* Visualization Styles */
+    .visualization-container {
+      margin-top: 20px;
+    }
+
+   
+
+    .grade-bar {
+      height: 20px;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, #e74c3c, #f39c12, #f1c40f, #2ecc71, #27ae60);
+      border-radius: 4px;
+      position: relative;
+    }
+
+    .grade-marker {
+      position: absolute;
+      top: 25px;
+      transform: translateX(-50%);
+      font-size: 12px;
+      color: #7f8c8d;
+    }
+
+    .progress-container {
+      margin-bottom: 20px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .progress-bar {
+      height: 20px;
+      background-color: #ecf0f1;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: #3498db;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .course-recommendation {
+      background-color: #e8f4fc;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .recommendation-item {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: white;
+      border-radius: 4px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .recommendation-item strong {
+      color: #2c3e50;
+    }
+
+    .grade-A { color: #27ae60; }
+    .grade-B { color: #f39c12; }
+    .grade-C { color: #e67e22; }
+    .grade-D { color: #e74c3c; }
+    .grade-F { color: #c0392b; }
+
+    /* Grade Distribution Chart Styles */
+    .grade-chart {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .grade-row {
+      display: flex;
+      margin-bottom: 8px;
+      align-items: center;
+    }
+
+    .grade-label {
+      width: 40px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .grade-range {
+      width: 150px;
+      font-size: 12px;
+      color: #7f8c8d;
+    }
+
+    .grade-description {
+      width: 120px;
+      font-size: 12px;
+      color: #7f8c8d;
+    }
+
+    .grade-points {
+      width: 60px;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .grade-color {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      border-radius: 3px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 1200px) {
+      .main-content {
+        flex-direction: column;
+      }
+      .left-column, .right-column {
+        min-width: 100%;
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Smart Course Planner</h1>
+    <nav>
+      <a onclick="window.location.href='landing.html'">Logout</a>
+    </nav>
+  </header>
+
+  <div class="sidebar">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="course-selection.html">Course Selection</a>
+    <a href="suggestions.html">Smart Course Planner</a>
+    <a href="profile-settings.html">Profile Settings</a>
+</div>
+
+  <div class="main-content">
+    <div class="left-column">
+      <div class="welcome-container">
+        <div class="welcome-message">
+          <span class="welcome-text">Welcome back,</span>
+          <strong id="userName" class="user-name">Nuzhat Jahan</strong>
+          <span class="welcome-subtext">Here's your academic overview.</span>
+        </div>
+      </div>
+      
+      <style>
+      .welcome-container {
+        padding: 20px 0;
+        margin-bottom: 20px;
+      }
+      
+      .welcome-message {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #2c3e50;
+        line-height: 1.6;
+      }
+      
+      .welcome-text {
+        font-size: 1.4rem;
+        font-weight: 400;
+        color: #7f8c8d;
+        margin-right: 8px;
+      }
+      
+      .user-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2980b9;
+        margin-right: 8px;
+      }
+      
+      .welcome-subtext {
+        font-size: 1.2rem;
+        font-weight: 400;
+        color: #34495e;
+        font-style: italic;
+      }
+      
+      /* Optional animation for a more dynamic feel */
+      .welcome-message:hover .user-name {
+        color: #3498db;
+        transition: color 0.3s ease;
+      }
+      </style>
+
+      <div class="dashboard-card cgpa-display">
+        <h2>Your Academic Performance</h2>
+        <div class="cgpa-value" id="cgpaValue">3.75</div>
+        <div class="cgpa-feedback" id="cgpaFeedback"></div>
+        
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>CGPA Progress</span>
+            <span>Target: 3.85</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 80%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card course-plan">
+        <h2>Recommended Course Plan</h2>
+        <p>Optimized course selection based on your academic history, credit limits, and predicted CGPA impact.</p>
+        <button class="btn-retake" onclick="showRetakeSuggestion()">Show Retake Suggestions</button>
+        <div id="retakeMessage"></div>
+      </div>
+
+      <div class="dashboard-card history">
+  <h2 class="history-title">Course History - Year 01</h2>
+  <ul class="history-list">
+    <li class="semester-header dropdown">
+      <input type="checkbox" id="semester1" class="dropdown-toggle" checked>
+      <label for="semester1" class="dropdown-label">Semester 01 ▼</label>
+      <div class="dropdown-content">
+        <div class="course-item">
+          <span class="course-code">ENG101</span>
+          <span class="course-name">English Listening and Speaking</span>
+          <span class="course-credits">(3 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="grade-A">A</span>
+        </div>
+        <div class="course-item">
+          <span class="course-code">MAT102</span>
+          <span class="course-name">Mathematics</span>
+          <span class="course-credits">(3 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="grade-B">B+</span>
+        </div>
+        <div class="course-item">
+          <span class="course-code">PHY101+L</span>
+          <span class="course-name">Physics I</span>
+          <span class="course-credits">(4 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="grade-B">B</span>
+        </div>
+        <div class="course-item">
+          <span class="course-code">H/S-1</span>
+          <span class="course-name">History/Society</span>
+          <span class="course-credits">(3 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="grade-A">A-</span>
+        </div>
+      </div>
+    </li>
+
+    <li class="semester-header dropdown">
+      <input type="checkbox" id="semester2" class="dropdown-toggle" checked>
+      <label for="semester2" class="dropdown-label">Semester 02 ▼</label>
+      <div class="dropdown-content">
+        <div class="course-item">
+          <span class="course-code">ENG102</span>
+          <span class="course-name">Reading Skills</span>
+          <span class="course-credits">(3 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="grade-A">A</span>
+        </div>
+        <div class="course-item">
+          <span class="course-code">CSE101+L</span>
+          <span class="course-name">Intro to CS</span>
+          <span class="course-credits">(4 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="grade-B">B+</span>
+        </div>
+        <div class="course-item">
+          <span class="course-code">PHY102+L</span>
+          <span class="course-name">Physics II</span>
+          <span class="course-credits">(4 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="grade-A">A-</span>
+        </div>
+        <div class="course-item">
+          <span class="course-code">H/S-2</span>
+          <span class="course-name">History/Society</span>
+          <span class="course-credits">(3 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="grade-B">B</span>
+        </div>
+      </div>
+    </li>
+
+    <li class="semester-header dropdown">
+      <input type="checkbox" id="semester3" class="dropdown-toggle" checked>
+      <label for="semester3" class="dropdown-label">Semester 03 ▼</label>
+      <div class="dropdown-content">
+        <div class="course-item">
+          <span class="course-code">ENG105</span>
+          <span class="course-name">Professional Writing</span>
+          <span class="course-credits">(3 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="grade-C">B-</span>
+        </div>
+        <div class="course-item">
+          <span class="course-code">CSE104+L</span>
+          <span class="course-name">Circuit Analysis</span>
+          <span class="course-credits">(4 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="grade-A">A</span>
+        </div>
+        <div class="course-item">
+          <span class="course-code">CSE201</span>
+          <span class="course-name">Structured Programming</span>
+          <span class="course-credits">(3 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="grade-D">D</span>
+        </div>
+        <div class="course-item">
+          <span class="course-code">H/S-3</span>
+          <span class="course-name">History/Society</span>
+          <span class="course-credits">(3 credits)</span>
+          <span class="grade-label">Grade:</span>
+          <span class="in-progress">A-</span>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .dashboard-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .history-title {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0f7fa;
+    text-align: center;
+  }
+  
+  .history-list {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown {
+    position: relative;
+    list-style: none;
+    margin-bottom: 15px;
+  }
+  
+  .dropdown-toggle {
+    display: none;
+  }
+  
+  .dropdown-label {
+    display: block;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #1e88e5, #0d47a1);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .dropdown-label:hover {
+    background: linear-gradient(135deg, #2196f3, #1565c0);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .dropdown-label::after {
+    position: absolute;
+    right: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  .dropdown-toggle:checked ~ .dropdown-label {
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0;
+  }
+  
+  .dropdown-toggle:checked ~ .dropdown-content {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .dropdown-toggle:checked ~ .dropdown-label::after {
+    transform: rotate(180deg);
+  }
+  
+  .dropdown-content {
+    display: none;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 0 0 8px 8px;
+    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.05);
+    border-left: 4px solid #1e88e5;
+  }
+  
+  .course-item {
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    transition: background 0.2s ease;
+  }
+  
+  .course-item:hover {
+    background: rgba(30, 136, 229, 0.05);
+  }
+  
+  .course-item:last-child {
+    border-bottom: none;
+  }
+  
+  .course-code {
+    font-weight: 600;
+    color: #1e88e5;
+    width: 80px;
+    display: inline-block;
+  }
+  
+  .course-name {
+    flex: 1;
+    color: #333;
+  }
+  
+  .course-credits {
+    color: #666;
+    width: 90px;
+    text-align: right;
+    margin-right: 20px;
+    font-size: 0.9em;
+  }
+  
+  .grade-label {
+    color: #666;
+    margin-right: 8px;
+    font-size: 0.9em;
+  }
+  
+  /* Enhanced grade colors */
+  .grade-A { 
+    color: #2e7d32;
+    font-weight: 600;
+    background: rgba(46, 125, 50, 0.1);
+    padding: 3px 8px;
+    border-radius: 12px;
+  }
+  .grade-B { 
+    color: #1565c0;
+    font-weight: 600;
+    background: rgba(21, 101, 192, 0.1);
+    padding: 3px 8px;
+    border-radius: 12px;
+  }
+  .grade-C { 
+    color: #ef6c00;
+    font-weight: 600;
+    background: rgba(239, 108, 0, 0.1);
+    padding: 3px 8px;
+    border-radius: 12px;
+  }
+  .grade-D { 
+    color: #c62828;
+    font-weight: 600;
+    background: rgba(198, 40, 40, 0.1);
+    padding: 3px 8px;
+    border-radius: 12px;
+  }
+  .in-progress { 
+    color: #6a1b9a;
+    font-weight: 600;
+    background: rgba(106, 27, 154, 0.1);
+    padding: 3px 8px;
+    border-radius: 12px;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+      
+      <style>
+      .dashboard-card.history {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        padding: 24px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
+      
+      .history-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #eee;
+      }
+      
+      .history-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      
+      .semester-header {
+        font-weight: 600;
+        color: #3498db;
+        margin: 20px 0 10px 0;
+        padding: 8px 0;
+        border-bottom: 1px dashed #e0e0e0;
+        font-size: 1.1rem;
+      }
+      
+      .course-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 16px;
+        margin: 4px 0;
+        background: #f9f9f9;
+        border-radius: 6px;
+        transition: background 0.2s;
+      }
+      
+      .course-item:hover {
+        background: #f0f0f0;
+      }
+      
+      .course-code {
+        font-weight: 600;
+        color: #2c3e50;
+        width: 80px;
+        margin-right: 16px;
+      }
+      
+      .course-name {
+        flex: 1;
+        color: #34495e;
+      }
+      
+      .course-credits {
+        width: 80px;
+        color: #7f8c8d;
+        text-align: right;
+        margin-right: 24px;
+        font-size: 0.9rem;
+      }
+      
+      .grade-label {
+        width: 50px;
+        color: #7f8c8d;
+        font-size: 0.9rem;
+        margin-right: 8px;
+      }
+      
+      .grade-A { color: #27ae60; font-weight: 600; }
+      .grade-B { color: #f39c12; font-weight: 600; }
+      .grade-C { color: #e67e22; font-weight: 600; }
+      .grade-D { color: #e74c3c; font-weight: 600; }
+      .in-progress { color: #3498db; font-weight: 600; }
+      </style>
+
+      <div class="dashboard-card four-year-plan">
+        <h2>Four Year Course Plan</h2>
+        <table>
+          <tr>
+            <th>Semester 01</th>
+            <th>Semester 02</th>
+            <th>Semester 03</th>
+            <th class="year-label">Year 01 - Total Cr: 40</th>
+          </tr>
+          <tr>
+            <td>ENG101 - 3</td>
+            <td>ENG102 - 3</td>
+            <td>ENG105 - 3</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>MAT102 - 3</td>
+            <td>CSE101+L - 4</td>
+            <td>CSE104+L - 4</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>PHY101+L - 4</td>
+            <td>PHY102+L - 4</td>
+            <td>CSE201 - 3</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>H/S-1 - 3</td>
+            <td>H/S-2 - 3</td>
+            <td>H/S-3 - 3</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <th>Semester 04</th>
+            <th>Semester 05</th>
+            <th>Semester 06</th>
+            <th class="year-label">Year 02 - Total Cr: 36</th>
+          </tr>
+          <tr>
+            <td>CSE202+L - 4</td>
+            <td>CSE203+L - 4</td>
+            <td>CSE204 - 3</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>CSE205 - 3</td>
+            <td>CSE206+L - 4</td>
+            <td>CSE207+L - 4</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>STA101 - 3</td>
+            <td>H/S-4 - 3</td>
+            <td>CSE208 - 3</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>CSE209 - 3</td>
+            <td>CSE210 - 3</td>
+            <td>H/S-5 - 3</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <th>Semester 07</th>
+            <th>Semester 08</th>
+            <th>Semester 09</th>
+            <th class="year-label">Year 03 - Total Cr: 36</th>
+          </tr>
+          <tr>
+            <td>CSE301+L - 4</td>
+            <td>CSE302+L - 4</td>
+            <td>CSE303+L - 4</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>CSE304 - 3</td>
+            <td>CSE305 - 3</td>
+            <td>CSE306 - 3</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>CSE307 - 3</td>
+            <td>CSE308 - 3</td>
+            <td>CSE309 - 3</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>H/S-6 - 3</td>
+            <td>Elective 1 - 3</td>
+            <td>Elective 2 - 3</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <th>Semester 10</th>
+            <th>Semester 11</th>
+            <th>Semester 12</th>
+            <th class="year-label">Year 04 - Total Cr: 34</th>
+          </tr>
+          <tr>
+            <td>CSE401 - 3</td>
+            <td>CSE402+L - 4</td>
+            <td>CSE403+L - 4</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Elective 3 - 3</td>
+            <td>Elective 4 - 3</td>
+            <td>Elective 5 - 3</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Thesis/Project I - 3</td>
+            <td>Thesis/Project II - 3</td>
+            <td>H/S-7 - 3</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Seminar - 2</td>
+            <td>Internship - 3</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="right-column">
+      <div class="dashboard-card">
+        <h2>Grade Distribution</h2>
+        <div class="grade-distribution">
+          <div class="grade-bar"></div>
+          <div class="grade-marker" style="left: 0%">F</div>
+          <div class="grade-marker" style="left: 25%">D</div>
+          <div class="grade-marker" style="left: 50%">C</div>
+          <div class="grade-marker" style="left: 75%">B</div>
+          <div class="grade-marker" style="left: 100%">A</div>
+        </div>
+        
+        <div class="grade-chart">
+          <div class="grade-row">
+            <div class="grade-color" style="background-color: #27ae60;"></div>
+            <div class="grade-label">A</div>
+            <div class="grade-range">90% and above</div>
+            <div class="grade-description">Excellent</div>
+            <div class="grade-points">4.00</div>
+          </div>
+          <div class="grade-row">
+            <div class="grade-color" style="background-color: #2ecc71;"></div>
+            <div class="grade-label">A-</div>
+            <div class="grade-range">85% to less than 90%</div>
+            <div class="grade-description">Excellent</div>
+            <div class="grade-points">3.70</div>
+          </div>
+          <div class="grade-row">
+            <div class="grade-color" style="background-color: #f1c40f;"></div>
+            <div class="grade-label">B+</div>
+            <div class="grade-range">80% to less than 85%</div>
+            <div class="grade-description">Good</div>
+            <div class="grade-points">3.30</div>
+          </div>
+          <div class="grade-row">
+            <div class="grade-color" style="background-color: #f39c12;"></div>
+            <div class="grade-label">B</div>
+            <div class="grade-range">75% to less than 80%</div>
+            <div class="grade-description">Good</div>
+            <div class="grade-points">3.00</div>
+          </div>
+          <div class="grade-row">
+            <div class="grade-color" style="background-color: #e67e22;"></div>
+            <div class="grade-label">B-</div>
+            <div class="grade-range">70% to less than 75%</div>
+            <div class="grade-description">Good</div>
+            <div class="grade-points">2.70</div>
+          </div>
+          <div class="grade-row">
+            <div class="grade-color" style="background-color: #d35400;"></div>
+            <div class="grade-label">C+</div>
+            <div class="grade-range">65% to less than 70%</div>
+            <div class="grade-description">Passing</div>
+            <div class="grade-points">2.30</div>
+          </div>
+          <div class="grade-row">
+            <div class="grade-color" style="background-color: #e74c3c;"></div>
+            <div class="grade-label">C</div>
+            <div class="grade-range">60% to less than 65%</div>
+            <div class="grade-description">Passing</div>
+            <div class="grade-points">2.00</div>
+          </div>
+          <div class="grade-row">
+            <div class="grade-color" style="background-color: #c0392b;"></div>
+            <div class="grade-label">C-</div>
+            <div class="grade-range">55% to less than 60%</div>
+            <div class="grade-description">Passing</div>
+            <div class="grade-points">1.70</div>
+          </div>
+          <div class="grade-row">
+            <div class="grade-color" style="background-color: #e84393;"></div>
+            <div class="grade-label">D+</div>
+            <div class="grade-range">50% to less than 55%</div>
+            <div class="grade-description">Deficient Passing</div>
+            <div class="grade-points">1.30</div>
+          </div>
+          <div class="grade-row">
+            <div class="grade-color" style="background-color: #fd79a8;"></div>
+            <div class="grade-label">D</div>
+            <div class="grade-range">45% to less than 50%</div>
+            <div class="grade-description">Deficient Passing</div>
+            <div class="grade-points">1.00</div>
+          </div>
+          <div class="grade-row">
+            <div class="grade-color" style="background-color: #e74c3c;"></div>
+            <div class="grade-label">F</div>
+            <div class="grade-range">Less than 45%</div>
+            <div class="grade-description">Failing</div>
+            <div class="grade-points">0.00</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <h2>CGPA Trend</h2>
+        <div class="chart-placeholder">
+          [Visualization: CGPA trend over semesters would appear here]
+        </div>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Current CGPA</span>
+            <span>3.75</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 75%; background-color: #2ecc71;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card course-recommendation">
+        <h2>Course Recommendations</h2>
+        <div class="recommendation-item">
+          <strong>Retake Suggestion:</strong> CSE201 - Structured Programming (Current Grade: D)
+        </div>
+        <div class="recommendation-item">
+          <strong>Upcoming Semester:</strong> Consider taking CSE202 with MAT203 for better understanding
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <h2>Credit Progress</h2>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Completed Credits</span>
+            <span>40/136</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 28.5%; background-color: #9b59b6;"></div>
+          </div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Foundation Requirements</span>
+            <span>18/42</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 30%; background-color: #e74c3c;"></div>
+          </div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Major Requirements</span>
+            <span>22/68</span>
+          </div>
+          
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 30%; background-color: #f39c12;"></div>
+          </div>
+          ---------------------------------------------------------------------
+          <div class="progress-label">
+            <span>Optional Requirements</span>
+            <span>0/12</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 28.5%; background-color: #b6b559;"></div>
+          </div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>Minor Requirements</span>
+            <span>/15</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 30%; background-color: #0fbe27;"></div>
+          </div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>	Internship or Senior Project</span>
+            <span>0/6</span>
+          </div>
+          
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 30%; background-color: #c51212;"></div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 Smart Course Planner. All rights reserved. | Last updated: <span id="currentDate"></span>
+  </footer>
+
+  <script>
+    // Set current date in footer
+    document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
+    
+    // CGPA feedback logic
+    const cgpa = parseFloat(document.getElementById('cgpaValue').innerText);
+    const feedback = document.getElementById('cgpaFeedback');
+
+    if (cgpa >= 3.75) {
+      feedback.innerText = "Excellent performance! You're in the top 10% of your class.";
+      feedback.style.backgroundColor = "#d4edda";
+      feedback.style.color = "#155724";
+    } else if (cgpa >= 3.0) {
+      feedback.innerText = "Good standing. Focus on B+ grades to reach the next level.";
+      feedback.style.backgroundColor = "#fff3cd";
+      feedback.style.color = "#856404";
+    } else {
+      feedback.innerText = "Consider academic advising to improve your performance.";
+      feedback.style.backgroundColor = "#f8d7da";
+      feedback.style.color = "#721c24";
+    }
+
+    function showRetakeSuggestion() {
+      const msg = `
+        <div class="recommendation-item" style="margin-top: 15px;">
+          <strong>Recommended Retake:</strong> CSE201 - Structured Programming (Grade: D)<br>
+          <strong>Potential Impact:</strong> Retaking this course and earning a B+ could raise your CGPA to ~3.82
+        </div>
+      `;
+      document.getElementById('retakeMessage').innerHTML = msg;
+    }
+
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+        alert("You have been logged out successfully.");
+        // window.location.href = 'login.html';
+      }
+    }
+
+    // Simulate grade distribution visualization
+    document.addEventListener('DOMContentLoaded', function() {
+      const gradeBar = document.querySelector('.grade-bar');
+      gradeBar.innerHTML = `
+        <div style="position: absolute; left: 0%; width: 5%; height: 100%; background-color: #e74c3c;"></div>
+        <div style="position: absolute; left: 5%; width: 10%; height: 100%; background-color: #f39c12;"></div>
+        <div style="position: absolute; left: 15%; width: 20%; height: 100%; background-color: #f1c40f;"></div>
+        <div style="position: absolute; left: 35%; width: 30%; height: 100%; background-color: #2ecc71;"></div>
+        <div style="position: absolute; left: 65%; width: 35%; height: 100%; background-color: #27ae60;"></div>
+      `;
+    });
+
+    fetch('http://localhost/smartwebapp\api\dashboard')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data); // This shows the data from your PHP API
+    // Use this data in your frontend
+  })
+  .catch(error => console.error('Error:', error));
+  </script>
+</body>
+</html>
